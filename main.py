@@ -32,7 +32,6 @@ def auto_start_and_close_thread():
     global recorder_state
     global recorder_info
     while True:
-        time.sleep(1)
         if recorder_state == 'init':
             rm_recorder.start_all_recorder(recorder_info)
             recorder_state = 'recording'
@@ -40,17 +39,21 @@ def auto_start_and_close_thread():
         elif recorder_state == 'recording':
             rm_recorder.check_process_state(recorder_info)
             if rm_recorder.get_close_process_num(recorder_info) != 0:
+                rm_recorder.check_process_state(recorder_info)
                 rm_recorder.start_all_recorder(recorder_info)
 
         elif recorder_state == 'quit':
             rm_recorder.check_process_state(recorder_info)
             if rm_recorder.get_open_process_num(recorder_info) != 0:
+                rm_recorder.check_process_state(recorder_info)
                 rm_recorder.close_all_recorder(recorder_info)
             else:
                 recorder_state = 'finish'
 
         elif recorder_state == 'finish':
             break
+
+        time.sleep(10)
 
 
 my_time.delay_until_time(recorder_start_time)

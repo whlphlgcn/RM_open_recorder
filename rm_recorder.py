@@ -21,8 +21,9 @@ def close_all_recorder(recorder_info):
 
 def check_process_state(recorder_info):
     for k in recorder_info:
-        if recorder_info[k]["process"].poll() is not None:
-            recorder_info[k]["process"] = None
+        if recorder_info[k]["process"] is not None:
+            if recorder_info[k]["process"].poll() is not None:
+                recorder_info[k]["process"] = None
 
 
 def get_close_process_num(recorder_info):
