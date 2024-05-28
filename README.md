@@ -1,6 +1,6 @@
 # RM_open_recorder
 
-#点点star喵，点点star谢谢喵！！！
+# 点点star喵，点点star谢谢喵！！！
 
 #### 介绍
 {**以下是 Gitee 平台说明，您可以替换此简介**
