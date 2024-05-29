@@ -12,10 +12,10 @@ def get_date_str():
 
 
 def delay_until_time(str_time):
+    str_time = str_time.replace(" ", "")
+
     if str_time == '':
         return
-
-    str_time = str_time.replace(" ", "")
 
     while True:
         if int(str_time) < int(time.strftime('%Y%m%d%H%M%S', time.localtime())):
