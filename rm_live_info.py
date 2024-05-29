@@ -50,7 +50,7 @@ def get_live_url(main_url, fpv_url):
     return live_url
 
 
-def get_live_game_info(url):
+def get_rm_json_dict(url):
     response = urllib.request.urlopen(url)
     data = response.read().decode('utf-8')
     json_data = json.loads(data)
