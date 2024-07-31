@@ -3,7 +3,10 @@
 # RM_open_recorder
 
 ## 获取方法
-下载发行版V1.0
+下载发行版V1.0（2024区域赛）
+下载发行版V1.1（2024区域赛，新增视角关闭不录制功能）
+下载发行版V2.0（2024全国赛）
+
 
 链接为： https://gitee.com/whlphlg/RM_open_recorder/releases
 
