@@ -20,17 +20,19 @@ recorder_state = 'init'
 # 如果网络带宽不足(例如：50Mbps下行)
 # 或者网络波动大(例如：信号差的wifi，或者有线网络但是宽带的运营商很垃圾)
 # 请选择 540p
-# 如果不想录制某视角，请填写 disable
+# 如果不想录制某视角，请填写 disable(字符串"disable")
 live_level = {"main": "1080p",
               "B1": "1080p",
               "B2": "1080p",
               "B3": "1080p",
               "B4": "1080p",
+              "B5": "1080p",
               "B6": "1080p",
               "R1": "1080p",
               "R2": "1080p",
               "R3": "1080p",
               "R4": "1080p",
+              "R5": "1080p",
               "R6": "1080p"}
 
 
@@ -82,7 +84,7 @@ rm_dict = rm_live_info.get_rm_json_dict(get_live_game_url)
 zone_dict = rm_live_info.get_zone(rm_dict)
 
 if zone_dict is None:
-    zone_dict = rm_dict["eventData"][0]
+    zone_dict = rm_dict["eventData"][4]
 
 main_url = rm_live_info.get_main_url(zone_dict)
 fpv_url = rm_live_info.get_fpv_url(zone_dict)

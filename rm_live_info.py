@@ -1,17 +1,18 @@
 import json
 import time
 import urllib.request
-import ssl
 
 
 rm_fpv_name2my_name_dict = {"红方英雄": "R1",
                             "蓝方英雄": "B1",
                             "红方工程": "R2",
                             "蓝方工程": "B2",
-                            "红方3号步兵": "R3",
-                            "蓝方3号步兵": "B3",
-                            "红方4号步兵": "R4",
-                            "蓝方4号步兵": "B4",
+                            "红3步兵": "R3",
+                            "蓝3步兵": "B3",
+                            "红4步兵": "R4",
+                            "蓝4步兵": "B4",
+                            "红5步兵": "R5",
+                            "蓝5步兵": "B5",
                             "红方空中": "R6",
                             "蓝方空中": "B6", }
 
@@ -52,7 +53,6 @@ def get_live_url(main_url, fpv_url):
 
 
 def get_rm_json_dict(url):
-    ssl._create_default_https_context = ssl._create_unverified_context
     response = urllib.request.urlopen(url)
     data = response.read().decode('utf-8')
     json_data = json.loads(data)
