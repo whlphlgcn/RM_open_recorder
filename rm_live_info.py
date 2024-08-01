@@ -1,6 +1,7 @@
 import json
 import time
 import urllib.request
+import ssl
 
 
 rm_fpv_name2my_name_dict = {"红方英雄": "R1",
@@ -53,6 +54,7 @@ def get_live_url(main_url, fpv_url):
 
 
 def get_rm_json_dict(url):
+    ssl._create_default_https_context = ssl._create_unverified_context
     response = urllib.request.urlopen(url)
     data = response.read().decode('utf-8')
     json_data = json.loads(data)
