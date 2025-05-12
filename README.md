@@ -3,14 +3,9 @@
 # RM_open_recorder
 
 ## 获取方法
-下载发行版V1.0（2024区域赛）
+直接clone或者zip下载解压即可
 
-下载发行版V1.1（2024区域赛，新增视角关闭不录制功能）
-
-下载发行版V2.0（2024全国赛）
-
-
-链接为： https://gitee.com/whlphlg/RM_open_recorder/releases
+非常滴简单，方便，快捷，绿色
 
 ## 启动方法
 建议使用vscode进入RM_open_recorder文件夹再启动main.py文件
