@@ -18,9 +18,8 @@ recorder_state = 'init'
 # 该选项可以设置清晰度 1080p or 720p or 540p
 # 清晰度越低，对网络环境要求越低
 # 如果网络带宽不足(例如：50Mbps下行)
-# 或者网络波动大(例如：信号差的wifi，或者有线网络但是宽带的运营商很垃圾)
-# 请选择 540p
-# 如果不想录制某视角，请填写 disable(字符串"disable")
+# 或者网络波动大(例如：信号差的wifi，或者有线网络但是宽带的运营商很垃圾)，请选择 540p
+# 如果不想录制某视角，请填写 disable，例如："B1": "disable",
 live_level = {"main": "1080p",
               "B1": "1080p",
               "B2": "1080p",
@@ -28,13 +27,14 @@ live_level = {"main": "1080p",
               "B4": "1080p",
               "B5": "1080p",
               "B6": "1080p",
+              "BALL": "1080p",
               "R1": "1080p",
               "R2": "1080p",
               "R3": "1080p",
               "R4": "1080p",
               "R5": "1080p",
               "R6": "1080p",
-              "ALL": "1080p"}
+              "RALL": "1080p"}
 
 
 # 格式必须为xxxx年xx月xx日xx时xx分xx秒
@@ -82,17 +82,27 @@ def auto_start_and_close_thread():
 my_time.delay_until_time(recorder_start_time)
 
 rm_dict = rm_live_info.get_rm_json_dict(get_live_game_url)
-zone_dict = rm_live_info.get_zone(rm_dict)
+zone_dict = rm_live_info.get_zone_auto(rm_dict)
 
 if zone_dict is None:
-    zone_dict = rm_dict["eventData"][4]
+    print("get_zone_auto fail!")
+    zone_list = rm_live_info.get_zone_name_list(rm_dict)
+    print("zone_list is " + str(zone_list))
+    print("Please input zone name to start recording!")
+    zone_name = input("Please input zone name: ")
+    print("Your input is " + zone_name)
+    zone_dict = rm_live_info.get_zone_by_name(rm_dict, zone_name)
 
 main_url = rm_live_info.get_main_url(zone_dict)
 fpv_url = rm_live_info.get_fpv_url(zone_dict)
 live_url = rm_live_info.get_live_url(main_url, fpv_url)
 recorder_info = rm_recorder.make_recorder_info(live_url, live_level)
+recorder_info = rm_recorder.check_recorder_info(recorder_info)
 
 pprint.pprint(recorder_info)
+for k, v in live_level.items():
+    recorder_level = recorder_info[k]["level"]
+    print(k + " user:" + v + ", recorder: " + recorder_level)
 
 thread = threading.Thread(target=auto_start_and_close_thread)
 thread.start()
@@ -111,6 +121,3 @@ while recorder_state != 'finish':
     pass
 
 exit()
-
-
-

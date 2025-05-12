@@ -4,27 +4,42 @@ import urllib.request
 import ssl
 
 
-rm_fpv_name2my_name_dict = {"红方英雄": "R1",
-                            "蓝方英雄": "B1",
-                            "红方工程": "R2",
-                            "蓝方工程": "B2",
-                            "红3步兵": "R3",
-                            "蓝3步兵": "B3",
-                            "红4步兵": "R4",
-                            "蓝4步兵": "B4",
-                            "红5步兵": "R5",
-                            "蓝5步兵": "B5",
-                            "红方空中": "R6",
-                            "蓝方空中": "B6",
-                            "全视角": "ALL" }
+my_name2rm_fpv_name2_dict = {"R1": ["红", "英雄"],
+                             "B1": ["蓝", "英雄"],
+                             "R2": ["红", "工程"],
+                             "B2": ["蓝", "工程"],
+                             "R3": ["红", "3", "步兵"],
+                             "B3": ["蓝", "3", "步兵"],
+                             "R4": ["红", "4", "步兵"],
+                             "B4": ["蓝", "4", "步兵"],
+                             "R5": ["红", "5", "步兵"],
+                             "B5": ["蓝", "5", "步兵"],
+                             "R6": ["红", "无人机"],
+                             "B6": ["蓝", "无人机"],
+                             "RALL": ["红", "全"],
+                             "BALL": ["蓝", "全"]}
 
 
-def get_zone(rm_json):
+def get_zone_auto(rm_json):
     for eventData_i in rm_json["eventData"]:
         if time.strftime('%Y-%m-%d', time.localtime()) in eventData_i["zoneDate"]:
             print("today is " + eventData_i["zoneName"] + "!")
             return eventData_i
     print("today is not RM live day!")
+    return None
+
+
+def get_zone_name_list(rm_json):
+    zone_list = []
+    for eventData_i in rm_json["eventData"]:
+        zone_list.append(eventData_i["zoneName"])
+    return zone_list
+
+
+def get_zone_by_name(rm_json, zone_name):
+    for eventData_i in rm_json["eventData"]:
+        if zone_name == eventData_i["zoneName"]:
+            return eventData_i
     return None
 
 
@@ -36,15 +51,21 @@ def get_main_url(zone_json, main_live_url=None):
     return main_live_url
 
 
-def get_fpv_url(zone_json, fpv_live_url=None):
-    if fpv_live_url is None:
-        fpv_live_url = {}
-    for fpvData_i in zone_json["fpvData"]:
-        my_name = rm_fpv_name2my_name_dict[fpvData_i["role"]]
+def get_fpv_url(zone_json):
+    fpv_live_url = {}
+    for my_name, rm_fpv_name2_list in my_name2rm_fpv_name2_dict.items():
         fpv_live_url[my_name] = {}
-        for sources_i in fpvData_i["sources"]:
-            fpv_live_url[my_name][sources_i["label"]] = sources_i["src"]
-        # print(fpv_live_url)
+        for fpvData_i in zone_json["fpvData"]:
+            name_hit_cnt = 0
+            for rm_fpv_name2_list_i in rm_fpv_name2_list:
+                if rm_fpv_name2_list_i in fpvData_i["role"]:
+                    name_hit_cnt += 1
+                    # print("hit " + my_name + " " + rm_fpv_name2_list_i + " " + fpvData_i["role"])
+            if name_hit_cnt == len(rm_fpv_name2_list):
+                for sources_i in fpvData_i["sources"]:
+                    fpv_live_url[my_name][sources_i["label"]
+                                          ] = sources_i["src"]
+                break
     return fpv_live_url
 
 

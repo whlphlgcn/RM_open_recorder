@@ -24,7 +24,3 @@ def delay_until_time(str_time):
             print('start time:' + str_time)
             print('now time  :' + time.strftime('%Y%m%d%H%M%S', time.localtime()))
             time.sleep(1)
-
-
-
-

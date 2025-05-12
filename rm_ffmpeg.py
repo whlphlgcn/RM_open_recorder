@@ -20,7 +20,8 @@ def run_ffmpeg_single_cmd(recorder_info, live_label):
         os.mkdir(file_path)
     file_name = live_label + '_' + my_time.get_time_str() + '.mp4'
     live_url = recorder_info[live_label][recorder_info[live_label]["level"]]
-    ffmpeg_cmd = ffmpeg_head_cmd + '"' + live_url + '"' + ffmpeg_tail_cmd + file_path + '/' + file_name
+    ffmpeg_cmd = ffmpeg_head_cmd + '"' + live_url + '"' + \
+        ffmpeg_tail_cmd + file_path + '/' + file_name
     print('the ' + file_name + ' recorder cmd is: ')
     print(ffmpeg_cmd)
     print('')
@@ -36,7 +37,3 @@ def close_ffmpeg_single_cmd(recorder_info, live_label):
     print('the ' + live_label + ' recorder cmd is closed!')
     recorder_info[live_label]['process'].stdin.write(b'q\r\n')
     recorder_info[live_label]['process'].stdin.flush()
-
-
-
-
