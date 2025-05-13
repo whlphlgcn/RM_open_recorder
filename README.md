@@ -19,4 +19,4 @@
 使用其他方法退出可能导致录制的视频文件损坏
 
 ## 关于本项目的详细说明
-详细说明请查看bilibili的up主六鸽32的视频： https://space.bilibili.com/283319643
+详细说明请查看bilibili的up主六鸽32的视频： https://www.bilibili.com/video/BV1Py7ozhExo
