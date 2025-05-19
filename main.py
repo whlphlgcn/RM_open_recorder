@@ -34,7 +34,8 @@ live_level = {"main": "1080p",
               "R4": "1080p",
               "R5": "1080p",
               "R6": "1080p",
-              "RALL": "1080p"}
+              "RALL": "1080p",
+              "other": "1080p", }
 
 
 # 格式必须为xxxx年xx月xx日xx时xx分xx秒
@@ -100,9 +101,9 @@ recorder_info = rm_recorder.make_recorder_info(live_url, live_level)
 recorder_info = rm_recorder.check_recorder_info(recorder_info)
 
 pprint.pprint(recorder_info)
-for k, v in live_level.items():
+for k, v in recorder_info.items():
     recorder_level = recorder_info[k]["level"]
-    print(k + " user:" + v + ", recorder: " + recorder_level)
+    print("the " + k + " actual level is " + recorder_level)
 
 thread = threading.Thread(target=auto_start_and_close_thread)
 thread.start()

@@ -53,6 +53,8 @@ def get_main_url(zone_json, main_live_url=None):
 
 def get_fpv_url(zone_json):
     fpv_live_url = {}
+    already_found = []
+    # find the fpvData which has the same name as my_name2rm_fpv_name2_dict
     for my_name, rm_fpv_name2_list in my_name2rm_fpv_name2_dict.items():
         fpv_live_url[my_name] = {}
         for fpvData_i in zone_json["fpvData"]:
@@ -65,7 +67,20 @@ def get_fpv_url(zone_json):
                 for sources_i in fpvData_i["sources"]:
                     fpv_live_url[my_name][sources_i["label"]
                                           ] = sources_i["src"]
+                already_found.append(fpvData_i["role"])
+                print(
+                    "find fpvData_i[" + fpvData_i["role"] + "] as " + my_name)
                 break
+    print("find the fpvData which has the same name as my_name2rm_fpv_name2_dict finished!")
+    # find other fpvData
+    for fpvData_i in zone_json["fpvData"]:
+        if fpvData_i["role"] not in already_found:
+            fpv_live_url[fpvData_i["role"]] = {}
+            for sources_i in fpvData_i["sources"]:
+                fpv_live_url[fpvData_i["role"]][sources_i["label"]
+                                                ] = sources_i["src"]
+            print("find other fpvData_i[" + fpvData_i["role"] + "]")
+    print("find other fpvData finished!")
     return fpv_live_url
 
 

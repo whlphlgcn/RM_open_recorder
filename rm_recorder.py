@@ -4,8 +4,12 @@ import subprocess
 
 def make_recorder_info(live_url, live_level):
     for k in live_url.keys():
-        live_url[k]["level"] = live_level[k]
-        live_url[k]["process"] = None
+        if k in live_level.keys():
+            live_url[k]["level"] = live_level[k]
+            live_url[k]["process"] = None
+        else:
+            live_url[k]["level"] = live_level["other"]
+            live_url[k]["process"] = None
     return live_url
 
 
